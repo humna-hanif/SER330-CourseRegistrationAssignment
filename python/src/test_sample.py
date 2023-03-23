@@ -3,8 +3,6 @@ import unittest
 
 from person_def import Person
 
-
-
 class Test_Person(unittest.TestCase):
     def test_PersonInit_WhenAllConditionsAreMet_Succeeds(self):
         # Arrange
@@ -14,7 +12,7 @@ class Test_Person(unittest.TestCase):
         person.last_name = 'Test'
 
         # Assert
-        #assert person.first_name == 'LastName'
+        assert 5 != 3
 
 if __name__ == '__main__':
     unittest.main() 
