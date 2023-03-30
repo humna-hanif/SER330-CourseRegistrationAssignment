@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 
 public class PersonTest {
@@ -12,21 +15,23 @@ public class PersonTest {
     public void VerifyPersonCreated_WhenAllConditionsMet_ReturnsObject()
     {
         // Arrange
-        Person person = new Person("Nicolini", "Dylan", "Quinnipiac University", "SomeDate", "DylanNicolini", "Faculty");
+        School school = new School("quinnipiac.edu");
+        Date dateOfBirth = new Date();
+        Person person = new Person("Nicolini", "Dylan", school, dateOfBirth, "DylanNicolini", "Faculty");
         String emailAddress = "Dylan.Nicolini@Quinnipiac.edu";
         
         // Act
         // Invoke property setting behavior
-        person.setEmail(emailAddress);
+        person.setFirstName("Test");
 
         // Assert
         // Verify the object was created successfully
         assertNotNull(person);
 
         // Verify that the email address was updated correctly
-        // assertEquals(emailAddress, person.getEmail());
+        assertEquals(emailAddress, person.getEmail());
 
         // Additional assertion to verify the email address is not blank - Example only
-        // assertNotEquals("", person.getEmail());
+        assertNotEquals("", person.getEmail());
     }
 }
