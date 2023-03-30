@@ -1,8 +1,6 @@
 package com.ser330.courseregistration;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Hello world!
@@ -12,9 +10,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
-        String dateInString = "30-Mar-2023";
-        Date dateOfBirth = formatter.parse(dateInString);
+        Date dateOfBirth = new Date(2023, 3, 30);
 
         School school = new School("quinnipiac.edu");
 
@@ -27,5 +23,13 @@ public class App
 
         Instructor instructor = new Instructor("Professor", "Smart", school, dateOfBirth, "ProfessorUserName");
 
+        Institution institution = new Institution("Quinnipiac University", "quinnipiac.edu");
+        institution.addCourse(course);
+        institution.enrollStudent(student);
+        institution.addCourseOffering(courseOffering);
+        institution.assignInstructor(instructor, course.getName(), course.getDepartment(), course.getNumber(), 1, 2023, "1");
+        
+
+        institution.listCourseSchedule(2023, "1", "SoftwareEngineering");   
     }
 }

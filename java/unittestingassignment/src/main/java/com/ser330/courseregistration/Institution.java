@@ -42,7 +42,7 @@ public class Institution {
         System.out.println('\n');
     }
 
-    public void enrollStudent(Student student) throws Exception {
+    public void enrollStudent(Student student) {
         if (student instanceof Student) {
             if (this.studentList.containsKey(student.username)) {
                 System.out.println(student.firstName + " " + student.lastName + " is already enrolled!");
@@ -50,7 +50,7 @@ public class Institution {
                 this.studentList.put(student.username, student);
             }
         } else {
-            throw new Exception("Only accepts student object");
+            System.out.println("Only accepts student object");
         }
     }
 
@@ -172,7 +172,7 @@ public class Institution {
             throw new IllegalArgumentException("Only accepts course object as argument");
         }
     }
-    public void add_course_offering(CourseOffering course_offering) throws Exception {
+    public void addCourseOffering(CourseOffering course_offering) {
         if (course_offering instanceof CourseOffering) {
             String courseName = course_offering.getCourse().getName();
             if (this.courseCatalog.containsKey(courseName)) {
@@ -180,10 +180,10 @@ public class Institution {
                 List<CourseOffering> offerings = this.courseSchedule.get(courseName);
                 offerings.add(course_offering);
             } else {
-                throw new Exception("Please create a course before creating course offering");
+                System.out.println("Please create a course before creating course offering");
             }
         } else {
-            throw new Exception("Only accepts course offering as argument");
+            System.out.println("Only accepts course offering as argument");
         }
     }
 }
