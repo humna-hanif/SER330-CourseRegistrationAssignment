@@ -1,16 +1,18 @@
 package com.ser330.courseregistration;
 
+import java.util.Date;
+
 public class Person {
 
-    private String lastName; 
-    private String firstName;
-    private String school;
-    private String dateOfBirth;
-    private String userName;
-    private String affiliation;
-    private String email;
+    protected String lastName; 
+    protected String firstName;
+    protected String school;
+    protected Date dateOfBirth;
+    protected String userName;
+    protected String affiliation;
+    protected String email;
 
-    public Person(String lastName, String firstName, String school, String dateOfBirth, String userName, String affiliation)
+    public Person(String lastName, String firstName, String school, Date dateOfBirth, String userName, String affiliation)
     {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -20,9 +22,39 @@ public class Person {
         this.affiliation = affiliation;
     }
     
+    public String getLastName()
+    {
+        return this.lastName;
+    }
+
+    public String getFirstName()
+    {
+        return this.firstName;
+    }
+
+    public String getSchool()
+    {
+        return school;
+    }
+
+    public Date getDateOfBirth()
+    {
+        return dateOfBirth;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
     public String getEmail()
     {
         return this.email;
+    }
+
+    public String getAffiliation()
+    {
+        return this.affiliation;
     }
 
     public void setEmail(String email)
