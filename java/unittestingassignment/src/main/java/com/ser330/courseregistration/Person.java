@@ -3,36 +3,33 @@ package com.ser330.courseregistration;
 import java.util.Date;
 
 public class Person {
-
-    protected String lastName; 
+    protected String lastName;
     protected String firstName;
-    protected String school;
+    protected School school;
     protected Date dateOfBirth;
-    protected String userName;
+    protected String username;
     protected String affiliation;
-    protected String email;
 
-    public Person(String lastName, String firstName, String school, Date dateOfBirth, String userName, String affiliation)
-    {
+    public Person(String lastName, String firstName, School school, Date dateOfBirth, String username, String affiliation) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.school = school;
         this.dateOfBirth = dateOfBirth;
-        this.userName = userName;
+        this.username = username;
         this.affiliation = affiliation;
     }
-    
+
     public String getLastName()
     {
-        return this.lastName;
+        return lastName;
     }
 
     public String getFirstName()
     {
-        return this.firstName;
+        return firstName;
     }
 
-    public String getSchool()
+    public School getSchool()
     {
         return school;
     }
@@ -44,22 +41,24 @@ public class Person {
 
     public String getUserName()
     {
-        return userName;
-    }
-
-    public String getEmail()
-    {
-        return this.email;
+        return username;
     }
 
     public String getAffiliation()
     {
-        return this.affiliation;
+        return affiliation;
+    }
+    public String getEmail() {
+        return username + '@' + school.getDomain();
     }
 
-    public void setEmail(String email)
+    public void setLastName(String lastName)
     {
-        this.email = email;
+        this.lastName = lastName;
     }
 
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
 }

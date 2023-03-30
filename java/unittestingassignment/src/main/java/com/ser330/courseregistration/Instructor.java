@@ -2,103 +2,60 @@ package com.ser330.courseregistration;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 public class Instructor extends Person {
-    private List<Course> courseList;
+    private List<CourseOffering> courseList;
 
-    public Instructor(String lastName, String firstName, String school, Date dateOfBirth, String username) {
+    public Instructor(String lastName, String firstName, School school, Date dateOfBirth, String username) {
         super(lastName, firstName, school, dateOfBirth, username, "instructor");
         this.courseList = new ArrayList<>();
     }
 
-    public List<String> listCourses(Integer year, Integer quarter) {
-        if (year != null && quarter != null) { //filter by year and quarter
-            List<Course> filtered = new ArrayList<>();
-            for (Course course : courseList) {
-                if (course.getYear().equals(year) && course.getQuarter().equals(quarter)) {
-                    filtered.add(course);
-                }
+    public List<String> listCourses(Integer year, String quarter) {
+        List<CourseOffering> filtered = new ArrayList<>();
+        for (CourseOffering o : courseList) {
+            if ((year == null || o.getYearAsString().toString().equals(String.valueOf(year)))
+                    && (quarter == null || o.getQuarter().equals(quarter))) {
+                filtered.add(o);
             }
-            Collections.sort(filtered, new Comparator<Course>() {
-                public int compare(Course a, Course b) {
-                    int result = b.getYear().compareTo(a.getYear());
-                    if (result == 0) {
-                        result = b.getQuarter().compareTo(a.getQuarter());
-                    }
-                    return result;
-                }
-            });
-            List<String> finalList = new ArrayList<>();
-            for (Course course : filtered) {
-                finalList.add(course.toString());
-            }
-            return finalList;
-        } else if (year != null) { //only year arg given
-            List<Course> filtered = new ArrayList<>();
-            for (Course course : courseList) {
-                if (course.getYear().equals(year)) {
-                    filtered.add(course);
-                }
-            }
-            Collections.sort(filtered, new Comparator<Course>() {
-                public int compare(Course a, Course b) {
-                    int result = b.getYear().compareTo(a.getYear());
-                    if (result == 0) {
-                        result = b.getQuarter().compareTo(a.getQuarter());
-                    }
-                    return result;
-                }
-            });
-            List<String> finalList = new ArrayList<>();
-            for (Course course : filtered) {
-                finalList.add(course.toString());
-            }
-            return finalList;
-        } else if (quarter != null) { //only quarter arg given
-            List<Course> filtered = new ArrayList<>();
-            for (Course course : courseList) {
-                if (course.getQuarter().equals(quarter)) {
-                    filtered.add(course);
-                }
-            }
-            Collections.sort(filtered, new Comparator<Course>() {
-                public int compare(Course a, Course b) {
-                    int result = b.getYear().compareTo(a.getYear());
-                    if (result == 0) {
-                        result = b.getQuarter().compareTo(a.getQuarter());
-                    }
-                    return result;
-                }
-            });
-            List<String> finalList = new ArrayList<>();
-            for (Course course : filtered) {
-                finalList.add(course.toString());
-            }
-            return finalList;
-        } else { //no filters given, default to None
-            Collections.sort(courseList, new Comparator<Course>() {
-                public int compare(Course a, Course b) {
-                    int result = b.getYear().compareTo(a.getYear());
-                    if (result == 0) {
-                        result = b.getQuarter().compareTo(a.getQuarter());
-                    }
-                    return result;
-                }
-            });
-            List<String> finalList = new ArrayList<>();
-            for (Course course : courseList) {
-                finalList.add(course.toString());
-            }
-            return finalList;
         }
+        Collections.sort(filtered, new OfferingComparator());
+        List<String> result = new ArrayList<>();
+        for (CourseOffering o : filtered) {
+            result.add(o.toString());
+        }
+        return result;
     }
 
+    public List<CourseOffering> getCourseList()
+    {
+        return courseList;
+    }
+
+    public void addCourseOffering(CourseOffering courseOffering)
+    {
+        courseList.add(courseOffering);
+    }
+    @Override
     public String toString() {
         return ("\n" + "Instructor Name: " + this.getFirstName() + " " + this.getLastName() + "\n" +
-            "School: " + this.getSchool().getName() + "\n" +
-            "DOB: " +
+                "School: " + this.getSchool().getName() + "\n" +
+                "DOB: " + this.getDateOfBirth().toString() + "\n" +
+                "Username: " + this.getUserName() + "\n");
+    }
+
+    private class OfferingComparator implements java.util.Comparator<CourseOffering> {
+        @Override
+        public int compare(CourseOffering o1, CourseOffering o2) {
+
+            int yearCompare = o2.getYearAsString().compareTo(o1.getYearAsString());
+            if (yearCompare != 0) {
+                return yearCompare;
+            } else {
+                return o2.getQuarter().compareTo(o1.getQuarter());
+            }
+        }
     }
 }

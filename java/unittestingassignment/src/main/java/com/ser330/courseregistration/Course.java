@@ -1,41 +1,36 @@
 package com.ser330.courseregistration;
-public class Course {
-    
-    protected String department;
-    protected String number; 
-    protected String name;
-    protected int credits;
-    protected String year;
-    protected String quarter;
 
-    public Course(String department, String number, String name, int credits, String year, String quarter)
-    {
+public class Course {
+    private String department;
+    private int number;
+    private String name;
+    private int credits;
+
+    public Course(String department, int number, String name, int credits) {
         this.department = department;
         this.number = number;
         this.name = name;
         this.credits = credits;
-        this.year = year;
-        this.quarter = quarter;
-
     }
-    
-    public String ToString()
-    {
-        return this.department + " " + this.number + " " + this.name + " " + String.valueOf(credits);
+
+    public String toString() {
+        return name + ", " + department + " " + number + " (" + credits + " credits)";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     public int getCredits()
     {
-        return this.credits;
-    }
-
-    public String getYear()
-    {
-        return year;
-    }
-
-    public String getQuarter()
-    {
-        return quarter;
+        return credits;
     }
 }

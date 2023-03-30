@@ -7,56 +7,104 @@ public class CourseOffering {
     private Course course;
     private int sectionNumber;
     private Instructor instructor;
-    private int year;
-    private String quarter;
+    int year;
+    String quarter;
     private ArrayList<Student> registeredStudents;
     private HashMap<String, String> grades;
 
-    public CourseOffering(Course course, int sectionNumber, int year, String quarter) {
+    public CourseOffering(Course course, int section_number, int year, String quarter) {
         this.course = course;
-        this.sectionNumber = sectionNumber;
+        this.sectionNumber = section_number;
         this.instructor = null;
         this.year = year;
         this.quarter = quarter;
-        this.registeredStudents = new ArrayList<>();
-        this.grades = new HashMap<>();
+        this.registeredStudents = new ArrayList<Student>();
+        this.grades = new HashMap<String, String>();
     }
 
-    public void register_students(Student... args) {
-        for (Student arg : args) {
-            this.registeredStudents.add(arg);
-            arg.course_list.add(this);
+    public void registerStudents(Student... students) {
+        for (Student student : students) {
+            this.registeredStudents.add(student);
+            student.addCourseOffering(this);
         }
     }
 
-    public ArrayList<Student> get_students() {
+    public ArrayList<Student> getStudents() {
         return this.registeredStudents;
     }
 
-    public void submit_grade(Person student, String grade) {
+    public void submitGrade(Student student, String grade) {
         String[] valid_grades = {"A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"};
-        if (student instanceof Student && java.util.Arrays.asList(valid_grades).contains(grade)) {
-            this.grades.put(student.getUserName(), grade);
+        boolean is_valid_grade = false;
+        for (String valid_grade : valid_grades) {
+            if (grade.equals(valid_grade)) {
+                is_valid_grade = true;
+                break;
+            }
+        }
+        if (student instanceof Student && is_valid_grade) {
+            this.grades.put(student.getUsername(), grade);
             String key = this.toString();
-            student.transcript.put(key, grade);
+            student.addGrade(key, grade);
         } else {
             System.out.println("Please enter a valid grade");
         }
     }
 
-    public String get_grade(Person student) {
+    public String getGrade(Student student) {
         if (student instanceof Student) {
-            return this.grades.get(student.username);
+            return this.grades.get(student.getUsername());
         } else {
-            return this.grades.get(student);
+            throw new IllegalArgumentException("Invalid argument");
+        }
+    }
+    public Course getCourse() {
+        return course;
+    }
+
+    public int getSectionNumber() {
+        return sectionNumber;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(String quarter) {
+        this.quarter = quarter;
+    }
+
+    public HashMap<String, String> getGrades() {
+        return grades;
+    }
+
+    public String getYearAsString()
+    {
+        return String.valueOf(year);
+    }
+    
+    public String toString() {
+        if (this.instructor != null) {
+            return this.course.getName() + ", " + this.course.getDepartment() + " " + this.course.getNumber() + "-" +
+                    this.sectionNumber + ", " + this.instructor.getFirstName() + " " + this.instructor.getLastName() +
+                    " (" + this.quarter + " " + this.year + ")";
+        } else {
+            return this.course.getName() + ", " + this.course.getDepartment() + " " + this.course.getNumber() + "-" +
+                    this.sectionNumber + " (" + this.quarter + " " + this.year + ")";
         }
     }
 
-    public String toString() {
-        if (this.instructor != null) {
-            return this.course.name + ", " + this.course.department + " " + this.course.number + "-" + this.section_number + ", " + this.instructor.first_name + " " + this.instructor.last_name + " (" + this.quarter + " " + this.year + ")";
-        } else {
-            return this.course.name + ", " + this.course.department + " " + this.course.number + "-" + this.section_number + " (" + this.quarter + " " + this.year + ")";
-        }
-    }
+
 }

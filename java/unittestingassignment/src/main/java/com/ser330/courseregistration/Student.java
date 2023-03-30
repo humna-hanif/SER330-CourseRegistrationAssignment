@@ -8,25 +8,23 @@ import java.util.HashMap;
 
 public class Student extends Person {
     
-    ArrayList<CourseOffering> course_list;
+    ArrayList<CourseOffering> courseList;
     HashMap<String, String> transcript;
 
-    public Student(String last_name, String first_name, String school, Date date_of_birth, String username) {
+    public Student(String last_name, String first_name, School school, Date date_of_birth, String username) {
         super(last_name, first_name, school, date_of_birth, username, "student");
-        course_list = new ArrayList<CourseOffering>();
+        courseList = new ArrayList<CourseOffering>();
         transcript = new HashMap<String, String>();
     }
 
     public ArrayList<CourseOffering> list_courses() {
-        ArrayList<CourseOffering> ordered = new ArrayList<CourseOffering>(transcript.keySet());
-        Collections.sort(ordered, new CourseOfferingComparator());
-        return ordered;
+       return courseList;
     }
 
     public int credits() {
         int total = 0;
-        for (CourseOffering offering : course_list) {
-            total += offering..credits;
+        for (CourseOffering offering : courseList) {
+            total += offering.getCourse().getCredits();
         }
         return total;
     }
@@ -50,11 +48,11 @@ public class Student extends Person {
         grade_scale.put("D-", 0.67);
         grade_scale.put("F", 0.0);
 
-        for (CourseOffering offering : course_list) {
-            String grade = offering.get_grade(this);
+        for (CourseOffering offering : courseList) {
+            String grade = offering.getGrade(this);
             if (grade != null) {
-                earned += (grade_scale.get(grade) * offering.course.credits);
-                available += offering.course.credits;
+                earned += (grade_scale.get(grade) * offering.getCourse().getCredits());
+                available += offering.getCourse().getCredits();
             }
         }
 
@@ -72,8 +70,8 @@ public class Student extends Person {
         return ("\n" + "Student Name: " + firstName + " " + lastName + "\n" +
             "School: " + school + "\n" +
             "DOB: " + dateOfBirth.toString() + "\n" +
-            "Username: " + userName + "\n" +
-            "Email: " + email + "\n" +
+            "Username: " + username + "\n" +
+            "Email: " +  getEmail() + "\n" +
             "GPA: " + gpa() + "\n" +
             "Credits: " + credits() + "\n");
     }
@@ -87,5 +85,20 @@ public class Student extends Person {
                 return c2.quarter.compareTo(c1.quarter);
             }
         }
+    }
+
+    public void addCourseOffering(CourseOffering courseOffering) 
+    {
+        courseList.add(courseOffering);
+    }
+
+    public String getUsername() 
+    {
+        return username;
+    }
+
+    public void addGrade(String key, String grade) 
+    {
+        transcript.put(key, grade);
     }
 }
