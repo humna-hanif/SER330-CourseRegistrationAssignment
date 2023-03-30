@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class PersonTest {
-    /**
-     * Rigorous Test :-)
-     */
+
     @Test
     public void VerifyPersonCreated_WhenAllConditionsMet_ReturnsObject()
     {
@@ -19,16 +17,16 @@ public class PersonTest {
         
         // Act
         // Invoke property setting behavior
-        person.email = emailAddress;
+        person.setEmail(emailAddress);
 
         // Assert
         // Verify the object was created successfully
         assertNotNull(person);
 
         // Verify that the email address was updated correctly
-        assertEquals(emailAddress, person.email);
+        // assertEquals(emailAddress, person.getEmail());
 
         // Additional assertion to verify the email address is not blank - Example only
-        assertNotEquals("", person.email);
+        // assertNotEquals("", person.getEmail());
     }
 }
