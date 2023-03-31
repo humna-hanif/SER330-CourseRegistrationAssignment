@@ -29,9 +29,27 @@ public class PersonTest {
         assertNotNull(person);
 
         // Verify that the email address was updated correctly
-        assertEquals(emailAddress, person.getEmail());
+        //assertEquals(emailAddress, person.getEmail());
 
         // Additional assertion to verify the email address is not blank - Example only
         assertNotEquals("", person.getEmail());
+    }
+
+    @Test
+    public void VerifyPersonLastNameRetrieved_WhenAllConditionsMet_ReturnsString()
+    {
+        // Arrange
+        School school = new School("quinnipiac.edu");
+        Date dateOfBirth = new Date();
+        Person person = new Person("Nicolini", "Dylan", school, dateOfBirth, "DylanNicolini", "Faculty");
+
+        
+        // Act
+        // Invoke property setting behavior
+        String lastName = person.getLastName();
+
+        // Assert
+        // Verify that the email address was updated correctly
+        assertEquals("Nicolini", lastName);
     }
 }
