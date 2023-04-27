@@ -1,5 +1,3 @@
-
-import pytest
 from instructor_def import Instructor
 from course_def import Course
 from course_offering_def import CourseOffering

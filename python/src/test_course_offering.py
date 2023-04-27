@@ -1,6 +1,4 @@
-
 import unittest
-
 from course_offering_def import CourseOffering
 from course_def import Course
 from student_def import Student

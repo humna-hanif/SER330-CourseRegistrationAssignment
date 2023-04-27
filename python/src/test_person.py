@@ -1,6 +1,4 @@
-
 import unittest
-
 from person_def import Person
 
 class Test_Person(unittest.TestCase):
